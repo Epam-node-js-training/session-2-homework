@@ -1,19 +1,19 @@
 var express = require('express')
 var app = express()
 var db = require('./config/database')
+var bodyParser = require('body-parser')
+var methodOverride = require('method-override')
 
-// db.sequelize
-//   .authenticate()
-//   .complete(function(err) {
-//     if (!!err) {
-//       console.log('err:', err)
-//     } else {
-//       console.log('OK!!!')
-//     }
-//   })
+app.set('views', './views')
+app.set('view engine', 'jade')
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+app.use(methodOverride('_method'))
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.redirect('/books')
 })
 
 var server = app.listen(8080, function () {
@@ -25,14 +25,51 @@ var server = app.listen(8080, function () {
 
 })
 
-app.get('/books', function(req, resp) {
+app.get('/books', function(req, res) {
   db.Book.findAndCountAll().then(function(books) {
-    if (books.count) {
-      // books.rows - read each row in Array
-      resp.send(books)
+    res.render('books/index', { books: books })
+  })
+})
+
+app.post('/books', function(req, res) {
+  var flash
+  if (req.body && !!req.body.author.trim() && !!req.body.title.trim()) {
+    flash = 'Book was added.'
+    db.Book.create({ author: req.body.author, title: req.body.title })
+  }
+  else
+    flash = 'Error: Book was not added. Mandatory fields cannot be empty.'
+  console.log(flash)
+  db.Book.findAndCountAll().then(function(books) {
+    res.render('books/index', { books: books, flash: flash })
+  })
+})
+
+app.get('/books/:id', function(req, res) {
+  db.Book.find(req.params.id).then(function(book) {
+    res.render('books/show', { book: book })
+  })
+})
+
+app.put('/books/:id', function(req, res) {
+  db.Book.find(req.params.id).then(function(book) {
+    var flash = 'Error: can\'t update book.'
+    if (book && req.body && !!req.body.author.trim() && !!req.body.title.trim()) {
+      book.updateAttributes({
+        title: req.body.title,
+        author: req.body.author
+      })
+      flash = 'Book was updated.'
     }
-    else {
-      resp.send('There are no books in library.')
+    res.render('books/show', { book: book, flash: flash })
+  })
+})
+
+app.delete('/books/:id', function(req, res) {
+  db.Book.find(req.params.id).then(function(book) {
+    if (book) {
+      book.destroy()
     }
+    res.redirect('/books')
   })
 })

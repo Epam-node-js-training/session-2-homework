@@ -1,0 +1,33 @@
+html
+  head
+    title Books list
+  body
+    if flash
+      #flash= flash
+    if books.count
+      h1 Books list
+      table
+        tr
+          th ID
+          th Author
+          th Title
+          th
+        - each row in books.rows
+          tr
+            td= row.id
+            td= row.author
+            td
+              a(href='/books/#{row.id}')= row.title
+            td
+              form(method='POST', action='/books/#{row.id}?_method=DELETE')
+                input(type='submit', value='Delete')
+    else
+      p There are no books in library.
+    hr
+    h2 Add new book
+    form(method='POST')
+      p Author:
+        input(name='author')
+      p Title:
+        input(name='title')
+      input(type='submit', value='Add new book')
