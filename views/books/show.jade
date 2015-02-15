@@ -1,6 +1,6 @@
 html
   head
-    title Books list
+    title Book details
   body
     if flash
       #flash= flash
@@ -11,14 +11,16 @@ html
           th ID
           th Author
           th Title
+          th Customers
         tr
           td= book.id
           td= book.author
           td= book.title
+          td
+            a(href='/books/#{book.id}/customers') Show
       hr
       h2 Update this book
       form(action='/books/#{book.id}?_method=PUT', method='POST')
-        //input(type='hidden', name='_method', value='put')
         p Author:
           input(name='author', value=book.author)
         p Title:

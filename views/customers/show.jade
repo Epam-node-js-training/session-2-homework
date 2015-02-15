@@ -1,0 +1,43 @@
+html
+  head
+    title Customer details
+  body
+    if flash
+      #flash= flash
+    if customer != null
+      h1 Customer information
+      table
+        tr
+          th ID
+          th Name
+          th Requested books
+        tr
+          td= customer.id
+          td= customer.name
+          td
+            a(href='/customers/#{customer.id}/books') Show
+      hr
+      h2 Update this customer
+      form(action='/customers/#{customer.id}?_method=PUT', method='POST')
+        p Name:
+          input(name='name', value=customer.name)
+        input(type='submit', value='Update customer')
+      hr
+      if books.count
+        h2 Order book
+        table
+          tr
+            th ID
+            th Author
+            th Title
+          - each book in books.rows
+            tr
+              td= book.id
+              td= book.author
+              td= book.title
+              td
+                form(action='/customers/#{customer.id}/books/#{book.id}', method='POST')
+                  input(type='submit', value='Order this!')
+    else
+      h1 We are sorry. This customer doesn't exist.
+    a(href='/customers') Back to list

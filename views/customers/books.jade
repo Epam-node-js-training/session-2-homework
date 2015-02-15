@@ -1,0 +1,29 @@
+html
+  head
+    title Customer's books
+  body
+    if flash
+      #flash= flash
+    if customer != null
+      h1 #{customer.name}
+      hr
+      if books.count
+        h2 Ordered books
+        table
+          tr
+            th ID
+            th Author
+            th Title
+          - each b in books.rows
+            tr
+              td= b.id
+              td= b.author
+              td= b.title
+              td
+                form(action='/customers/#{customer.id}/books/#{b.id}?_method=DELETE', method='POST')
+                  input(type='submit', value='Remove this!')
+      else
+        h3 You haven't ordered any books yet.
+    else
+      h1 We are sorry. This customer doesn't exist.
+    a(href='/customers') Back to list

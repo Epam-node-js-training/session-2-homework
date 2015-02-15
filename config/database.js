@@ -27,7 +27,7 @@ var Customer = sequelize.define('Customer', {
     timestamps: false
   })
 
-Book.belongsTo(Customer)
+Book.hasMany(Customer)
 Customer.hasMany(Book)
 
 // Book.create({author: 'Author 1', title: 'Book #1'})

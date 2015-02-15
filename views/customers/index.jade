@@ -1,0 +1,29 @@
+html
+  head
+    title Customers list
+  body
+    if flash
+      #flash= flash
+    if customers.count
+      h1 Customers list
+      table
+        tr
+          th ID
+          th Name
+          th
+        - each row in customers.rows
+          tr
+            td= row.id
+            td
+              a(href='/customers/#{row.id}')= row.name
+            td
+              form(method='POST', action='/customers/#{row.id}?_method=DELETE')
+                input(type='submit', value='Delete')
+    else
+      p There are no customers in library.
+    hr
+    h2 Add new customer
+    form(method='POST')
+      p Name:
+        input(name='name')
+      input(type='submit', value='Add new customer')
