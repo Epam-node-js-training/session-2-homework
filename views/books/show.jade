@@ -1,0 +1,31 @@
+html
+  head
+    title Book details
+  body
+    if flash
+      #flash= flash
+    if book != null
+      h1 Book information
+      table
+        tr
+          th ID
+          th Author
+          th Title
+          th Customers
+        tr
+          td= book.id
+          td= book.author
+          td= book.title
+          td
+            a(href='/books/#{book.id}/customers') Show
+      hr
+      h2 Update this book
+      form(action='/books/#{book.id}?_method=PUT', method='POST')
+        p Author:
+          input(name='author', value=book.author)
+        p Title:
+          input(name='title', value=book.title)
+        input(type='submit', value='Update book')
+    else
+      h1 We are sorry. This book doesn't exist.
+    a(href='/books') Back to list

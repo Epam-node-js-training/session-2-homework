@@ -1,0 +1,30 @@
+html
+  head
+    title Customers who ordered this book
+  body
+    if flash
+      #flash= flash
+    if book != null
+      if customers != null
+        h1 Customers who ordered book '#{book.title}'
+        table
+          tr
+            th ID
+            th Name
+            th
+          - each customer in customers
+            tr
+              td= customer.id
+              td= customer.name
+              td
+                form(method='POST', action='/customers/#{customer.id}/books/#{book.id}?_method=DELETE')
+                  input(type='submit', value='Delete')
+        hr
+      else
+        p There are no customers.
+    else
+      h1 We are sorry. This book doesn't exist.
+    p
+      a(href='/books/#{book.id}') Back to book details
+    p
+      a(href='/books') Back to list

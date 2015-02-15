@@ -1,0 +1,32 @@
+{
+  "name": "Library",
+  "version": "0.1.0",
+  "description": "REST web server for library",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serg-kovalev/session-2-homework.git"
+  },
+  "keywords": [
+    "library",
+    "REST",
+    "nodejs"
+  ],
+  "author": "Siarhei Kavaliou",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/serg-kovalev/session-2-homework/issues"
+  },
+  "dependencies": {
+    "express": "~4.11.2",
+    "sequelize": "~2.0.2",
+    "pg": "~4.2.0",
+    "pg-hstore": "~2.3.1",
+    "jade": "~1.9.2",
+    "body-parser": "~1.12.0",
+    "method-override": "~2.3.1"
+  }
+}
