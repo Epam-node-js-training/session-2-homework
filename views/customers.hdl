@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Bustomers of library</title>
+</head>
+<body>
+<table id ="booksTable" width="600px" border="1">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+</tr>
+  {{#each customers}}
+  <tr>
+    <td><a href="/customers/{{ id }}">{{ id }}</a></td>
+    <td> {{ name }} </td>
+  </tr>
+  {{/each}}
+</table>
+</body>
+</html>

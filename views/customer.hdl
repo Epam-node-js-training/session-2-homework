@@ -1,0 +1,9 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Customer {{id}}</title>
+</head>
+<body>
+<h1>{{name}}</h1>
+</body>
+</html>
