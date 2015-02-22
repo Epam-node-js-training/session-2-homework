@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Books in library</title>
+</head>
+<body>
+<table id ="booksTable" width="600px" border="1">
+  <tr>
+    <th>ID</th>
+    <th>Author</th>
+    <th>Title</th>
+</tr>
+  {{#each books}}
+  <tr>
+    <td>
+        <a href="/books/{{ id }}">
+            {{ id }}
+        </a>
+    </td>
+    <td> {{ author }} </td>
+    <td> {{ title }} </td>
+  </tr>
+  {{/each}}
+</table>
+</body>
+</html>
