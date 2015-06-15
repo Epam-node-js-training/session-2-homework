@@ -1,0 +1,12 @@
+{
+  "name": "library-rest",
+  "description": "REST api for library",
+  "author": "Aleksandr Filichkin",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "4.12.4",
+    "body-parser": "1.12.4",
+    "mysql": "2.7.0",
+    "sequelize": "3.2.0"
+  }
+}
